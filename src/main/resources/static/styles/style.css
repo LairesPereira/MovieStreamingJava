@@ -1,0 +1,20 @@
+body {
+    background-color: #141414;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    margin: 18px;
+}
+
+h1 {
+    margin-left: 30px;
+    margin-top: 20px;
+    color: #E50815;
+    font-family: "Creepster", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
