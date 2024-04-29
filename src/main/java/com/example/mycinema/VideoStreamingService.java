@@ -14,14 +14,11 @@ public class VideoStreamingService {
     public File movie;
     private final File MOVIES_SOURCE_PATH = new File("src/main/resources/movies");
     private static final String FORMAT="classpath:/movies";
-    private String streamTitle;
+
     @Autowired
     private ResourceLoader resourceLoader;
 
     public Mono<Resource> getVideoStreaming(String titleName) {
-        this.streamTitle = titleName;
-//        System.out.println("Aqui");
-//        System.out.println(String.format("%s%s%s%s%s", FORMAT, getMovieFolder(titleName), "/", titleName, ".mp4"));
         return Mono.fromSupplier(() -> resourceLoader.getResource(String.format("%s%s", FORMAT,  getMovieFolder(titleName))));
     }
 
@@ -48,5 +45,4 @@ public class VideoStreamingService {
         }
         return  finalPath;
     }
-
 }

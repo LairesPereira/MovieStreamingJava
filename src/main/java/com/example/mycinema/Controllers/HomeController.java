@@ -12,7 +12,6 @@ public class HomeController {
     @Autowired
     VideoStreamingService videoStreamingService;
 
-
     @GetMapping(value = "video" , produces = "video/mp4")
     public Mono<Resource> getVideo(@RequestParam String title) {
         return videoStreamingService.getVideoStreaming(title);
