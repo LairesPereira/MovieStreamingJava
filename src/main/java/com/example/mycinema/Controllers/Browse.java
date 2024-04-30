@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-public class HomeController {
+public class Browse {
 
     @Autowired
     VideoStreamingService videoStreamingService;

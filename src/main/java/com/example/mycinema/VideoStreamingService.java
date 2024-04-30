@@ -12,8 +12,8 @@ import java.io.File;
 @Service
 public class VideoStreamingService {
     public File movie;
-    private final File MOVIES_SOURCE_PATH = new File("src/main/resources/movies");
-    private static final String FORMAT="classpath:/movies";
+    private final File MOVIES_SOURCE_PATH = new File("src/main/resources/static/movies");
+    private static final String FORMAT="classpath:/static/movies";
 
     @Autowired
     private ResourceLoader resourceLoader;
