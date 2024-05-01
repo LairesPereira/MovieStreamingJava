@@ -1,9 +1,11 @@
 package com.example.mycinema.Contracts;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public interface IPlayableInfo {
-     String fileExtension();
-     String fileName();
-     float fileDuration();
+     void setFileExtension();
+     void setFileName();
+     void setFileDuration();
 }

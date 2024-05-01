@@ -37,14 +37,13 @@
       <div class="col">
         <div class="row" style="display: flex; flex-direction: row; gap: 5px;" >
             <div th:each="movie: ${moviesList}" class="card col-sm-3" style="width: 14rem;">
-                <img class="card-img-top" th:src="@{movies{posterParentFolder}/{posterId}(posterParentFolder=${movie.posterParentFolder}, posterId=${movie.posterId})}" alt="Card image cap">
-                <!-- <img class="card-img-top" th:href="$@{~/movie.posterPath}" alt="Card image cap"> -->
+                <img class="card-img-top" th:src="@{movies{posterSource}(posterSource=${movie.posterSource})}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 th:text="${movie.title}" th:id="${movie.title}" onclick="getMovie(this.id)" class="card-title"></h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h5 th:text="${movie.fileName}" th:id="${movie.fileName}" onclick="getMovie(this.id)" class="card-title"></h5>
+                    <p th:text="${movie.description}" class="card-text"></p>
                     <p  th:text="${movie.gender}" class="card-text"></p>
                     <div th:if="${role} == 'ADMIN'">
-                      <button onclick="deleteMovie(this.id)" th:id="${movie.title}">teste</button>
+                      <button onclick="deleteMovie(this.id)" th:id="${movie.fileName}">teste</button>
                     </div>
                 </div>
             </div>

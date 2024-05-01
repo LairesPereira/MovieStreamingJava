@@ -2,6 +2,7 @@ package com.example.mycinema.Controllers;
 
 import com.example.mycinema.Enums.EnumRoles;
 import com.example.mycinema.models.Cinema;
+import com.example.mycinema.models.Movie;
 import com.example.mycinema.models.Session;
 import com.example.mycinema.models.User;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,8 @@ public class Home extends Session {
     public String home(Model model) {
         // just to meet classroom requirements
 //        login();
-        registerUserDB("laires", "lala", "123", EnumRoles.ADMIN);
-        sessionSetUser(new User("laires", "lala", "123", EnumRoles.ADMIN));
+        registerUserDB("laires", "lala", "123", EnumRoles.CLIENT);
+        sessionSetUser(new User("laires", "lala", "123", EnumRoles.CLIENT));
 
         // starts real project
         Cinema cinema = new Cinema();

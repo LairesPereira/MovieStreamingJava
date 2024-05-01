@@ -19,7 +19,7 @@ public class Cinema  {
                 File[] subFiles = new File(movieDir.getPath()).listFiles();
                 for (File file : subFiles) {
                     if(file.getName().endsWith(".mp4") || file.getName().endsWith(".mkv")) {
-                        movies.add(new Movie(movieDir.getPath()));
+                        movies.add(new Movie(movieDir.getPath(), new MovieAboutInfo()));
                     }
                 }
             }
