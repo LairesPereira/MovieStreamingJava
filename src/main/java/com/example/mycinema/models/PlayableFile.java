@@ -1,39 +1,46 @@
 package com.example.mycinema.models;
 
 import com.example.mycinema.Contracts.IPlayableInfo;
+import com.example.mycinema.Contracts.IPlayableTxtAditionalInfoFile;
 
 import java.io.File;
 
-abstract public class PlayableFile implements IPlayableInfo {
+public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAditionalInfoFile {
     public String folderPath;
-    public String title;
-    public File movie;
-    public String fileExtension;
+    public String fileName;
+    public String extension;
+    public File file;
 
     public PlayableFile(String folderPath) {
         this.folderPath = folderPath;
-        setMovieFile(folderPath);
-        setMovieTitle();
+        setPlayableFile(folderPath);
+        setFileName();
         setFileExtension();
     }
 
-    private void setMovieFile(String folderPath) {
+    private void setPlayableFile(String folderPath) {
         File[] subFiles = new File(folderPath).listFiles();
         File movieFile = null;
         for (File file : subFiles) {
             if(file.toString().endsWith(".mp4") || file.toString().endsWith(".mkv")) {
-                movieFile = file;
-                break;
+                this.file = file;
+                this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4);
+                System.err.println(this.file);
             }
         }
-        this.movie = movieFile;
     }
 
-    private void setMovieTitle() {
-        this.title = this.movie.getName().trim().substring(0, movie.getName().length() - 4);
+    public String fileName() {
+        return fileName;
     }
 
-    private void setFileExtension() {
-        this.fileExtension = movie.getName().trim().substring(movie.getName().length() - 4);
+    @Override
+    public void setFileName() {
+        this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4);
+    }
+
+    @Override
+    public void setFileExtension() {
+        this.extension = this.file.getName().trim().substring(file.getName().length() - 4);
     }
 }

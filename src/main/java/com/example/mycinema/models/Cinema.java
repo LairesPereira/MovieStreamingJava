@@ -9,11 +9,12 @@ public class Cinema  {
     public ArrayList<Movie> movies = new ArrayList<Movie>();
     private File[] moviesDir = new File("src/main/resources/static/movies").listFiles();
 
+
     public Cinema() {
-        getMoviesList();
+        getMoviesList(false);
     }
 
-    public void getMoviesList() {
+    public void getMoviesList(boolean isKids) {
         for (File movieDir: moviesDir) {
             if(movieDir.isDirectory()) {
                 File[] subFiles = new File(movieDir.getPath()).listFiles();
