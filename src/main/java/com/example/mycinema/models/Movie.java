@@ -1,20 +1,23 @@
 package com.example.mycinema.models;
 
+import com.example.mycinema.Enums.EnumAgeGroup;
+
 import java.io.File;
+import java.util.Scanner;
 
 public class Movie extends PlayableFile  {
     public String gender;
     public String description;
     public String posterSource;
-    private MovieAboutInfo movieAboutInfo;
+    public int enumAgeGroup = EnumAgeGroup.FIRST_AGE_GROUP.age;
 
-    public Movie(String folderPath, MovieAboutInfo movieAboutInfo) {
+    public Movie(String folderPath) {
         super(folderPath);
-        this.movieAboutInfo = movieAboutInfo;
         setMovieGender();
         setMoviePoster();
         setMovieDescription();
         setFileName();
+        setAgeGroup(folderPath);
     }
 
     public void setMoviePoster() {
@@ -32,10 +35,42 @@ public class Movie extends PlayableFile  {
     }
 
     public void setMovieGender() {
-        this.gender = movieAboutInfo.searchInfo(super.folderPath, "GENDER");
+        this.gender = searchInfo(super.folderPath, "GENDER");
     }
 
     public void setMovieDescription() {
-        this.description = movieAboutInfo.searchInfo(super.folderPath, "DESCRIPTION");
+        this.description = searchInfo(super.folderPath, "DESCRIPTION");
+    }
+
+    @Override
+    public void setAgeGroup(String folderPath) {
+        try {
+            System.out.println(Integer.parseInt(searchInfo(folderPath, "AGEGROUP:")));
+            this.enumAgeGroup = Integer.parseInt(searchInfo(folderPath, "AGEGROUP:"));
+        } catch (NumberFormatException e) {
+            System.err.println(e);
+        }
+    }
+
+    @Override
+    public String searchInfo(String folderPath, String value) {
+        File[] files = new File(folderPath).listFiles();
+        for (File file : files) {
+            try {
+                if (file.toString().endsWith(".txt")) {
+                    Scanner scan = new Scanner(file);
+                    while (scan.hasNextLine()) {
+                        String read = scan.nextLine();
+                        if (read.contains(value)){
+                            String info = read.substring(read.lastIndexOf(":") + 1);
+                            return info;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+        return "";
     }
 }

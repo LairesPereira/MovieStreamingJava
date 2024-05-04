@@ -1,32 +1,24 @@
 package com.example.mycinema.models;
 
+import com.example.mycinema.DB.FakeDB;
 import com.example.mycinema.Enums.EnumRoles;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public abstract class Session extends FakeDB {
-    private User user;
-    private String username;
-    private EnumRoles role;
+    private Client user;
 
-    public void sessionSetUser(User user) {
-        this.user = user;
-        this.username = user.name;
-        this.role = user.role;
+    public void setUserSession(String email, String password, EnumRoles role, boolean isKidProfile) {
+        this.user = new Client(email, password, role, isKidProfile);
     }
 
     public String sessionGetUserName() {
-        return username;
+        return user.name;
     }
 
     public EnumRoles sessionGetRole() {
-        return role;
+        return user.role;
     }
 
-    public User sessionGetUser() {
+    public Client sessionGetUser() {
         return user;
     }
 }

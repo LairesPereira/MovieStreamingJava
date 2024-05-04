@@ -1,13 +1,14 @@
 package com.example.mycinema.models;
 
 import com.example.mycinema.Contracts.IPlayableInfo;
+import com.example.mycinema.Contracts.IPlayableTxtAditionalInfoFile;
+
 import java.io.File;
 
-public abstract class PlayableFile implements IPlayableInfo {
+public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAditionalInfoFile {
     public String folderPath;
     public String fileName;
     public String extension;
-    public float duration;
     public File file;
 
     public PlayableFile(String folderPath) {
@@ -15,7 +16,6 @@ public abstract class PlayableFile implements IPlayableInfo {
         setPlayableFile(folderPath);
         setFileName();
         setFileExtension();
-        setFileDuration();
     }
 
     private void setPlayableFile(String folderPath) {
@@ -35,13 +35,12 @@ public abstract class PlayableFile implements IPlayableInfo {
     }
 
     @Override
-    public void setFileName() { this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4); }
+    public void setFileName() {
+        this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4);
+    }
 
     @Override
-    public void setFileExtension() { this.extension = this.file.getName().trim().substring(file.getName().length() - 4); }
-
-    @Override
-    public void setFileDuration() {
-
+    public void setFileExtension() {
+        this.extension = this.file.getName().trim().substring(file.getName().length() - 4);
     }
 }

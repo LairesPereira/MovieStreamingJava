@@ -7,5 +7,4 @@ import java.io.IOException;
 public interface IPlayableInfo {
      void setFileExtension();
      void setFileName();
-     void setFileDuration();
 }
