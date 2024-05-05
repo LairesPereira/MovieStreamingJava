@@ -45,10 +45,9 @@ public class Movie extends PlayableFile  {
     @Override
     public void setAgeGroup(String folderPath) {
         try {
-            System.out.println(Integer.parseInt(searchInfo(folderPath, "AGEGROUP:")));
             this.enumAgeGroup = Integer.parseInt(searchInfo(folderPath, "AGEGROUP:"));
         } catch (NumberFormatException e) {
-            System.err.println(e);
+            System.out.println("No age group Found");
         }
     }
 
