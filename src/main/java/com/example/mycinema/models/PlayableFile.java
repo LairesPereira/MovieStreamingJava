@@ -25,13 +25,8 @@ public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAdition
             if(file.toString().endsWith(".mp4") || file.toString().endsWith(".mkv")) {
                 this.file = file;
                 this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4);
-                System.err.println(this.file);
             }
         }
-    }
-
-    public String fileName() {
-        return fileName;
     }
 
     @Override

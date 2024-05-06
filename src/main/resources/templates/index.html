@@ -23,11 +23,12 @@
           <div th:each="movie: ${moviesList}" th:if="${!isKidProfile or movie.enumAgeGroup < 18}" class="card col-sm-3" style="width: 14rem; padding: 10px;">
             <img class="card-img-top" th:src="@{movies{posterSource}(posterSource=${movie.posterSource})}" alt="Card image cap">
             <div class="card-body">
-              <h5 th:text="${movie.fileName}" th:id="${movie.fileName}" onclick="getMovie(this.id)" class="card-title"></h5>
+              <h5 th:if="${admin}" th:text="${movie.fileName}" th:id="${movie.fileName}" onclick="getMovieAsAdmin(this.id)" class="card-title"></h5>
+              <h5 th:if="${!admin}" th:text="${movie.fileName}" th:id="${movie.fileName}" onclick="getMovie(this.id)" class="card-title"></h5>
               <p th:text="${movie.description}" class="card-text"></p>
               <p  th:text="${movie.gender}" class="card-text"></p>
-              <div th:if="${role} == 'ADMIN'">
-                <button onclick="deleteMovie(this.id)" th:id="${movie.fileName}">teste</button>
+              <div th:if="${admin}">
+                <button onclick="deleteMovie(this.id)" th:id="${movie.fileName}">Delete</button>
               </div>
             </div>
           </div>
@@ -39,6 +40,10 @@
     <script>
         function getMovie(value) {
             window.location = window.location.href + '/' + 'video?title=' + value.trim()
+        }
+
+        function getMovieAsAdmin(value) {
+            window.location = 'browse/' + 'video?title=' + value.trim()
         }
 
         function deleteMovie(value) {

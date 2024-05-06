@@ -11,20 +11,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class Home extends Session {
 
+    @GetMapping("/admin")
+    public String loginAdmin(Model model) {
+        model.addAttribute("adminLogin", true);
+        model.addAttribute("loginFormObject", new LoginFormObject());
+        return "login";
+    }
+
+    @PostMapping("/admin")
+    public String adminAuth(@ModelAttribute LoginFormObject loginFormObject, Model model) {
+        super.registerAdminUserDB("lala@lala", "123123", EnumRoles.ADMIN);
+        String userEmail = loginFormObject.getEmail();
+        String userPassword = loginFormObject.getPassword();
+
+        if (super.checkAdminExists(userEmail)) {
+            super.setAdminSession(userEmail, userPassword, EnumRoles.ADMIN);
+            Cinema cinema = new Cinema();
+            model.addAttribute("moviesList", cinema.movies);
+            model.addAttribute("isKidProfile", false);
+            model.addAttribute("admin", true);
+            return "index";
+            }
+         else {
+            return "redirect:/";
+        }
+    }
+
     @GetMapping("/browse")
     public String home(Model model) {
-        boolean isKidProfile = sessionGetUser().getIsKidProfile();
-
         Cinema cinema = new Cinema();
-
+        boolean isKidProfile = sessionGetUser().getIsKidProfile();
         model.addAttribute("moviesList", cinema.movies);
         model.addAttribute("isKidProfile", isKidProfile);
-
+        model.addAttribute("admin", false);
         return "index";
     }
 
     @GetMapping("/")
     public String login(Model model) {
+        model.addAttribute("adminLogin", false);
         model.addAttribute("loginFormObject", new LoginFormObject());
         return "login";
     }

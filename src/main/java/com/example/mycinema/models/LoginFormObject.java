@@ -4,6 +4,7 @@ public class LoginFormObject {
     private String email;
     private String password;
     private String kidsProfile;
+    private String isAdmin;
 
     public String isKidsProfile() {
         return kidsProfile;
@@ -11,6 +12,14 @@ public class LoginFormObject {
 
     public void setKidsProfile(String kidsProfile) {
         this.kidsProfile = kidsProfile;
+    }
+
+    public String isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(String admin) {
+        isAdmin = admin;
     }
 
     public String getEmail() { return email; }

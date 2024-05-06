@@ -5,7 +5,7 @@ import com.example.mycinema.Enums.EnumAgeGroup;
 import java.io.File;
 import java.util.Scanner;
 
-public class Movie extends PlayableFile  {
+public class Movie extends PlayableFile{
     public String gender;
     public String description;
     public String posterSource;
@@ -17,7 +17,7 @@ public class Movie extends PlayableFile  {
         setMoviePoster();
         setMovieDescription();
         setFileName();
-        setAgeGroup(folderPath);
+        setAgeGroup();
     }
 
     public void setMoviePoster() {
@@ -43,7 +43,7 @@ public class Movie extends PlayableFile  {
     }
 
     @Override
-    public void setAgeGroup(String folderPath) {
+    public void setAgeGroup() {
         try {
             this.enumAgeGroup = Integer.parseInt(searchInfo(folderPath, "AGEGROUP:"));
         } catch (NumberFormatException e) {
