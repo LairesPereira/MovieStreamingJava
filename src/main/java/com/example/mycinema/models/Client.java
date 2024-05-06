@@ -10,15 +10,7 @@ public class Client extends User{
         this.isKidProfile = isKidProfile;
     }
 
-    public Client(String name, String email, String password, EnumRoles role) {
-        super(name, email, password, role);
-    }
-
     public boolean getIsKidProfile() {
-        return isKidProfile;
-    }
-
-    public boolean setIsKidProfile(boolean isKidProfile) {
         return isKidProfile;
     }
 }

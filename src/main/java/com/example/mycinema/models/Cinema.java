@@ -1,7 +1,5 @@
 package com.example.mycinema.models;
 
-import com.example.mycinema.Contracts.IDirInfo;
-
 import java.io.File;
 import java.util.ArrayList;
 
@@ -11,10 +9,10 @@ public class Cinema  {
 
 
     public Cinema() {
-        getMoviesList(false);
+        getMoviesList();
     }
 
-    public void getMoviesList(boolean isKids) {
+    public void getMoviesList() {
         for (File movieDir: moviesDir) {
             if(movieDir.isDirectory()) {
                 File[] subFiles = new File(movieDir.getPath()).listFiles();

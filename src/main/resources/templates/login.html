@@ -15,7 +15,7 @@
   </head>
 
   <body class="text-center">
-    <form th:action="@{/}" th:object="${loginFormObject}" method="POST" class="form-signin">
+    <form th:action="${adminLogin} ? @{/admin} : @{/} " th:object="${loginFormObject}" method="POST" class="form-signin">
       <img th:src="@{images/logindeath.png}" alt="" width="72" height="72">
       <div class="login-inputs">
         <input th:name="email" th:value="${email}" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -25,20 +25,14 @@
       </div>
       <div class="login-inputs">
         <div class="form-check">
-          <input th:name="kidsProfile" th:checked onclick="toggleInputValue()" class="form-check-input" type="checkbox" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Kids Profile?
+          <input th:if="${!adminLogin}" th:name="kidsProfile" th:checked class="form-check-input" type="checkbox" id="flexCheckDefault">
+          <label th:if="${!adminLogin}" class="form-check-label" for="flexCheckDefault">
+            Kids Profile
           </label>
         </div>
       </div>
-    
       <button class="btn btn-md btn-primary btn-block" type="submit">Login</button>
     </form>
 
-    <script>
-      function toggleInputValue() {
-        console.log(document.getElementById("flexCheckDefault")) 
-      }
-    </script>
   </body>
 </html>

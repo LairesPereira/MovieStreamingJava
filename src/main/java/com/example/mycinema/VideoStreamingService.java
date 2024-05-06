@@ -1,6 +1,5 @@
 package com.example.mycinema;
 
-import com.example.mycinema.Contracts.IDirInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -11,7 +10,6 @@ import java.io.File;
 
 @Service
 public class VideoStreamingService {
-    public File movie;
     private final File MOVIES_SOURCE_PATH = new File("src/main/resources/static/movies");
     private static final String FORMAT="classpath:/static/movies";
 
