@@ -4,12 +4,11 @@ import com.example.mycinema.Enums.EnumRoles;
 import com.example.mycinema.models.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Home extends Session {
+    Cinema cinema = new Cinema();
 
     @GetMapping("/admin")
     public String loginAdmin(Model model) {
@@ -26,7 +25,6 @@ public class Home extends Session {
 
         if (super.checkAdminExists(userEmail)) {
             super.setAdminSession(userEmail, userPassword, EnumRoles.ADMIN);
-            Cinema cinema = new Cinema();
             model.addAttribute("moviesList", cinema.movies);
             model.addAttribute("isKidProfile", false);
             model.addAttribute("admin", true);
@@ -39,7 +37,6 @@ public class Home extends Session {
 
     @GetMapping("/browse")
     public String home(Model model) {
-        Cinema cinema = new Cinema();
         boolean isKidProfile = sessionGetUser().getIsKidProfile();
         model.addAttribute("moviesList", cinema.movies);
         model.addAttribute("isKidProfile", isKidProfile);
@@ -77,5 +74,14 @@ public class Home extends Session {
             return "redirect:browse";
         }
         return "login";
+    }
+
+    @PostMapping("/deleteMovies")
+    public String deleteMovies(@RequestParam String movieTitle, Model model) {
+        cinema.removeMovie(movieTitle);
+        model.addAttribute("moviesList", cinema.movies);
+        model.addAttribute("isKidProfile", false);
+        model.addAttribute("admin", true);
+        return "index";
     }
 }

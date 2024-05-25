@@ -30,4 +30,12 @@ public abstract class Session extends FakeDB {
     public Admin sessionGetAdmin() {
         return admin;
     }
+
+    public Client getUser() {
+        return user;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
 }

@@ -38,16 +38,33 @@
     </div>
 
     <script>
+
+        const video = document.querySelector("video");
+
+        video.onloadedmetadata = (event) => {
+          console.log(
+            "The duration and dimensions of the media and tracks are now known.",
+          );
+        };
+
+        function deleteMovie(value) {
+          const params = {
+            'movieTitle': value
+          }
+
+          fetch('/deleteMovies?movieTitle=' + value, {
+            method: "POST",
+          }) 
+          .then(json => console.log(json))
+          .then(location.reload())
+        }
+
         function getMovie(value) {
             window.location = window.location.href + '/' + 'video?title=' + value.trim()
         }
 
         function getMovieAsAdmin(value) {
             window.location = 'browse/' + 'video?title=' + value.trim()
-        }
-
-        function deleteMovie(value) {
-          console.log(value)
         }
     </script>
 </body>

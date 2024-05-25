@@ -1,40 +1,13 @@
 body {
-    background-color: #141414;
+    background-color: #272829;
     color: white;
     margin: 0;
     padding: 0;
 }
 
-.main-container {
-    /* margin: 18px; */
-}
-
 h1 {
-    /* margin-left: 30px; */
-    /* margin-top: 20px; */
     color: #E50815;
     font-family: "Creepster", system-ui;
     font-weight: 400;
     font-style: normal;
 }
-
-
-/* SEARCH BAR CSS */
-
-.form-control:focus {
-    box-shadow: none;
-  }
-  
-  .form-control-underlined {
-    border-width: 0;
-    border-bottom-width: 1px;
-    border-radius: 0;
-    padding-left: 0;
-  }
-  
-  
-  .form-control::placeholder {
-    font-size: 0.95rem;
-    color: #aaa;
-    font-style: italic;
-  }
