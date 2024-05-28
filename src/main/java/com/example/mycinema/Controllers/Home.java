@@ -2,13 +2,20 @@ package com.example.mycinema.Controllers;
 
 import com.example.mycinema.Enums.EnumRoles;
 import com.example.mycinema.models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Home extends Session {
-    Cinema cinema = new Cinema();
+    Cinema cinema;
+
+    @Autowired
+    public Home() {
+        this.cinema = new Cinema();
+    }
+
 
     @GetMapping("/admin")
     public String loginAdmin(Model model) {
@@ -46,6 +53,9 @@ public class Home extends Session {
 
     @GetMapping("/")
     public String login(Model model) {
+        if (cinema.movies.size() == 0) {
+            return "no_movies";
+        }
         model.addAttribute("adminLogin", false);
         model.addAttribute("loginFormObject", new LoginFormObject());
         return "login";

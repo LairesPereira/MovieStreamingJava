@@ -24,6 +24,9 @@ public class Cinema  {
     }
 
     public void getMoviesList() {
+        if (moviesDir.length == 0) {
+            return;
+        }
         for (File movieDir: moviesDir) {
             if(movieDir.isDirectory()) {
                 File[] subFiles = new File(movieDir.getPath()).listFiles();
