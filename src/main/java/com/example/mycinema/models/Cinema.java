@@ -1,8 +1,11 @@
 package com.example.mycinema.models;
 
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.util.ArrayList;
 
+@Service
 public class Cinema  {
 
     private final String PROVIDER_PATH = System.getProperty("user.dir");

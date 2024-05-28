@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Home extends Session {
+    @Autowired
     Cinema cinema;
 
-    @Autowired
-    public Home() {
-        this.cinema = new Cinema();
-    }
+//    public Home(Cinema cinema) {
+//        this.cinema = cinema;
+//    }
 
 
     @GetMapping("/admin")
@@ -53,9 +53,10 @@ public class Home extends Session {
 
     @GetMapping("/")
     public String login(Model model) {
-//        if (cinema.movies.size() == 0) {
-//            return "no_movies";
-//        }
+        if (cinema.movies.size() == 0) {
+            System.err.println("ERRO NO /");
+            return "no_movies";
+        }
         model.addAttribute("adminLogin", false);
         model.addAttribute("loginFormObject", new LoginFormObject());
         return "login";
