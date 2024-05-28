@@ -48,8 +48,9 @@ public class Movie extends PlayableFile implements WebMvcConfigurer {
                 String encodstring = encodeFileToBase64Binary(f);
                 System.out.println(encodstring);
                 this.posterSource = "data:image/jpeg;base64," + encodstring;
-
                 break;
+            } else {
+                this.posterSource = "load-default";
             }
         }
     }
