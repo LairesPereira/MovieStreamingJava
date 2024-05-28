@@ -2,7 +2,6 @@ package com.example.mycinema.models;
 
 import com.example.mycinema.Contracts.IPlayableInfo;
 import com.example.mycinema.Contracts.IPlayableTxtAditionalInfoFile;
-
 import java.io.File;
 
 public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAditionalInfoFile {
@@ -14,7 +13,6 @@ public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAdition
     public PlayableFile(String folderPath) {
         this.folderPath = folderPath;
         setPlayableFile(folderPath);
-        setFileName();
         setFileExtension();
     }
 
@@ -25,14 +23,17 @@ public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAdition
             if(file.toString().endsWith(".mp4") || file.toString().endsWith(".mkv")) {
                 this.file = file;
                 this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4);
+                this.extension = this.file.getName().trim().substring(file.getName().length() - 4);
+                String fileOriginalName = this.fileName;
+                String sanitizedName = fileOriginalName.replaceAll("[\\[\\]\\{\\}\\(\\)]","");
+                file.renameTo(new File(file.getParent() + "/" + sanitizedName + extension));
+                this.fileName = sanitizedName;
             }
         }
     }
 
     @Override
-    public void setFileName() {
-        this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4);
-    }
+    public void setFileName() {}
 
     @Override
     public void setFileExtension() {

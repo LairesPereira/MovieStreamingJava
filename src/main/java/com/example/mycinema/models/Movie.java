@@ -42,11 +42,9 @@ public class Movie extends PlayableFile implements WebMvcConfigurer {
                 String extension = file.toString().endsWith(".jpg") ? ".jpg" : ".jpeg";
                 File rename = new File(file.getParent() + "/" + fileName + extension);
                 file.renameTo(rename);
-                String posterParentPath = folderPath.substring(folderPath.lastIndexOf("/"));
                 File image = new File(folderPath + "/" + file.getName());
                 File f =  new File(image.getPath());
                 String encodstring = encodeFileToBase64Binary(f);
-                System.out.println(encodstring);
                 this.posterSource = "data:image/jpeg;base64," + encodstring;
                 break;
             } else {
