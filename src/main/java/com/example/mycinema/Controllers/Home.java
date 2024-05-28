@@ -53,9 +53,9 @@ public class Home extends Session {
 
     @GetMapping("/")
     public String login(Model model) {
-        if (cinema.movies.size() == 0) {
-            return "no_movies";
-        }
+//        if (cinema.movies.size() == 0) {
+//            return "no_movies";
+//        }
         model.addAttribute("adminLogin", false);
         model.addAttribute("loginFormObject", new LoginFormObject());
         return "login";

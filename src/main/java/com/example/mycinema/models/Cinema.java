@@ -24,19 +24,20 @@ public class Cinema  {
     }
 
     public void getMoviesList() {
-        if (moviesDir.length == 0) {
-            return;
-        }
-        for (File movieDir: moviesDir) {
-            if(movieDir.isDirectory()) {
-                File[] subFiles = new File(movieDir.getPath()).listFiles();
-                for (File file : subFiles) {
-                    if(file.getName().endsWith(".mp4") || file.getName().endsWith(".mkv")) {
-                        System.out.println(file.getParent());
-                        movies.add(new Movie(movieDir.getPath()));
+        System.err.println(moviesDir.length);
+        if (moviesDir.length != 0) {
+            for (File movieDir: moviesDir) {
+                if(movieDir.isDirectory()) {
+                    File[] subFiles = new File(movieDir.getPath()).listFiles();
+                    for (File file : subFiles) {
+                        if(file.getName().endsWith(".mp4") || file.getName().endsWith(".mkv")) {
+                            System.out.println(file.getParent());
+                            movies.add(new Movie(movieDir.getPath()));
+                        }
                     }
                 }
             }
         }
+
     }
 }
