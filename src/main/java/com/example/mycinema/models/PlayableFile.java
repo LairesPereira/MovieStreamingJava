@@ -14,7 +14,6 @@ public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAdition
         this.folderPath = folderPath;
         setPlayableFile(folderPath);
         setFileExtension();
-//        setFileName();
     }
 
     private void setPlayableFile(String folderPath) {
@@ -34,13 +33,7 @@ public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAdition
     }
 
     @Override
-    public void setFileName() {
-//        String fileOriginalName = this.file.getName().trim().substring(0, file.getName().length() - 4);
-//        String sanitizedName = fileOriginalName.replaceAll("[\\[\\]\\{\\}\\(\\)]","");
-//        System.out.println("Aqui");
-//        System.out.println(sanitizedName);
-//        this.fileName = sanitizedName;
-    }
+    public void setFileName() {}
 
     @Override
     public void setFileExtension() {
