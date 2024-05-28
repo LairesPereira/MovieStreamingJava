@@ -2,9 +2,7 @@ package com.example.mycinema.models;
 
 import com.example.mycinema.Contracts.IPlayableInfo;
 import com.example.mycinema.Contracts.IPlayableTxtAditionalInfoFile;
-
 import java.io.File;
-import java.net.SocketTimeoutException;
 
 public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAditionalInfoFile {
     public String folderPath;
@@ -30,12 +28,6 @@ public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAdition
                 String fileOriginalName = this.fileName;
                 String sanitizedName = fileOriginalName.replaceAll("[\\[\\]\\{\\}\\(\\)]","");
                 file.renameTo(new File(file.getParent() + "/" + sanitizedName + extension));
-                System.out.println(file);
-                System.out.println("Aqui");
-                System.out.println(sanitizedName);
-                System.out.println(this.extension);
-                System.out.println("Sanitized");
-                System.out.println(file.getParent() + "/" + sanitizedName + extension);
                 this.fileName = sanitizedName;
             }
         }
