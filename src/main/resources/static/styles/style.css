@@ -7,8 +7,8 @@ body {
 
 h1 {
     color: #E50815;
-    font-family: "Creepster", system-ui;
-    font-weight: 400;
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
     font-style: normal;
 }
 

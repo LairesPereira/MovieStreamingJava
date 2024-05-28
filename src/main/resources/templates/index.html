@@ -7,18 +7,19 @@
     <link rel="stylesheet" th:href="@{styles/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <title>Cine Horror</title>
+    <title>MyCinema</title>
 </head>
 <body>
-    <div class="row">
-      <h1 style="margin: 10px;">Cine Horror</h1>
+    <div class="col-12 d-flex justify-content-center">
+      <h1 style="margin: 10px;">MyCinema</h1>
     </div>
     </div>
-    <div class="main-container">
-      <div class="col"></div>
-      <div class="col" style="display: flex; align-items: center; justify-content: center;">
+    <div class="main-container d-flex">
+      <div class="col-1"></div>
+      <div class="col-10">
         <div class="row" style="display: flex; flex-direction: row; gap: 5px;" >
           <div th:each="movie: ${moviesList}" th:if="${!isKidProfile or movie.enumAgeGroup < 18}" class="card col-sm-3" style="width: 14rem; padding: 10px;">
             <img class="card-img-top poster-image" th:if="${movie.posterSource != 'load-default'}" th:src="${movie.posterSource}" alt="Card image cap">
@@ -35,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="col"></div>
+      <div class="col-1"></div>
     </div>
 
     <script>
