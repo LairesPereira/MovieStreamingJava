@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Home extends Session {
+
+    private final boolean SKIP_LOGIN = true;
+
     @Autowired
     Cinema cinema;
 
-//    public Home(Cinema cinema) {
-//        this.cinema = cinema;
-//    }
+    public Home(Cinema cinema) {
+        this.cinema = cinema;
+    }
 
 
     @GetMapping("/admin")
@@ -44,22 +47,28 @@ public class Home extends Session {
 
     @GetMapping("/browse")
     public String home(Model model) {
-        boolean isKidProfile = sessionGetUser().getIsKidProfile();
-        model.addAttribute("moviesList", cinema.movies);
+        boolean isKidProfile = false;
+        if(!SKIP_LOGIN) {
+            isKidProfile = sessionGetUser().getIsKidProfile();
+        }
         model.addAttribute("isKidProfile", isKidProfile);
+        model.addAttribute("moviesList", cinema.movies);
         model.addAttribute("admin", false);
         return "index";
     }
 
     @GetMapping("/")
     public String login(Model model) {
+        if (SKIP_LOGIN) {
+            return "redirect:browse";
+        }
         if (cinema.movies.size() == 0) {
             System.err.println("ERRO NO /");
             return "no_movies";
         }
         model.addAttribute("adminLogin", false);
         model.addAttribute("loginFormObject", new LoginFormObject());
-        return "login";
+        return "insert_path";
     }
 
     @PostMapping("/")

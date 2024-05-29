@@ -10,7 +10,7 @@ public class Cinema  {
 
     private final String PROVIDER_PATH = System.getProperty("user.dir");
     private String SOURCE_PATH = PROVIDER_PATH.substring(0, PROVIDER_PATH.lastIndexOf("/")) + "/movies";
-
+//    private String SOURCE_PATH = "/Users/Dev/Documents/Faculdade/P2/poo/avaliacao02/movies";
     public ArrayList<Movie> movies = new ArrayList<Movie>();
     private File[] moviesDir = new File(SOURCE_PATH).listFiles();
 
@@ -27,7 +27,6 @@ public class Cinema  {
     }
 
     public void getMoviesList() {
-        System.err.println(moviesDir.length);
         if (moviesDir.length != 0) {
             for (File movieDir: moviesDir) {
                 if(movieDir.isDirectory()) {
