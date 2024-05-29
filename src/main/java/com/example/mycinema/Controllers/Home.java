@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Home extends Session {
+<<<<<<< HEAD
 
     private final boolean SKIP_LOGIN = true;
 
@@ -19,6 +20,15 @@ public class Home extends Session {
         this.cinema = cinema;
     }
 
+=======
+    private Cinema cinema;
+    private boolean loginScreen = false;
+
+    @Autowired
+    public Home() {
+//        this.cinema = cinema;
+    }
+>>>>>>> 3277e91 (vm test)
 
     @GetMapping("/admin")
     public String loginAdmin(Model model) {
@@ -47,6 +57,7 @@ public class Home extends Session {
 
     @GetMapping("/browse")
     public String home(Model model) {
+<<<<<<< HEAD
         boolean isKidProfile = false;
         if(!SKIP_LOGIN) {
             isKidProfile = sessionGetUser().getIsKidProfile();
@@ -54,6 +65,10 @@ public class Home extends Session {
         model.addAttribute("isKidProfile", isKidProfile);
         model.addAttribute("moviesList", cinema.movies);
         model.addAttribute("admin", false);
+=======
+        model.addAttribute("moviesList", cinema.movies);
+        model.addAttribute("isKidProfile", loginScreen);
+>>>>>>> 3277e91 (vm test)
         return "index";
     }
 
