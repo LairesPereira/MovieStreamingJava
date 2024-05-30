@@ -1,10 +1,6 @@
 package com.example.mycinema.models;
 
-<<<<<<< HEAD
 import org.springframework.stereotype.Service;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> 3277e91 (vm test)
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,11 +27,7 @@ public class Cinema  {
     }
 
     public void getMoviesList() {
-<<<<<<< HEAD
         if (moviesDir.length != 0) {
-=======
-        if(moviesDir.length > 0) {
->>>>>>> 3277e91 (vm test)
             for (File movieDir: moviesDir) {
                 if(movieDir.isDirectory()) {
                     File[] subFiles = new File(movieDir.getPath()).listFiles();
