@@ -25,10 +25,9 @@ public class ResourceLoaderController {
         System.out.println(title);
         Resource media = new FileSystemResource(findResource(title));
         ResourceRegion region = resourceRegion(media, headers);
-        System.err.println(region);
-        return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
-                .contentType(MediaTypeFactory.getMediaType(media)
-                        .orElse(MediaType.APPLICATION_OCTET_STREAM))
+        return ResponseEntity
+                .status(HttpStatus.PARTIAL_CONTENT)
+                .contentType(MediaTypeFactory.getMediaType(media).orElse(MediaType.APPLICATION_OCTET_STREAM))
                 .body(region);
     }
 
