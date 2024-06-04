@@ -42,7 +42,7 @@ public class ResourceLoaderController {
             System.err.println("***");
             System.out.printf("Contente retrive: %d \n", contentLength);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
         List<HttpRange> range = headers.getRange();
         if (!range.isEmpty()) {

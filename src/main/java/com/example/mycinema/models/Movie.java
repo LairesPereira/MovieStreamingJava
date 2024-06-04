@@ -1,5 +1,6 @@
 package com.example.mycinema.models;
 
+import com.example.APIs.OMDB;
 import com.example.mycinema.Enums.EnumAgeGroup;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -7,13 +8,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Movie extends PlayableFile implements WebMvcConfigurer {
-
     private final String PROVIDER_PATH = System.getProperty("user.dir");
     private String SOURCE_PATH = PROVIDER_PATH.substring(0, PROVIDER_PATH.lastIndexOf("/")) + "/movies";
-
     public String gender;
     public String description;
     public String posterSource;
@@ -71,7 +71,13 @@ public class Movie extends PlayableFile implements WebMvcConfigurer {
     }
 
     public void setMovieDescription() {
-        this.description = searchInfo(super.folderPath, "DESCRIPTION");
+        OMDB omdbClient = new OMDB();
+        Map<String, Object> responseMap = omdbClient.searchTitle(super.fileName);
+        if (responseMap != null && responseMap.containsKey("Plot")) {
+            this.description = responseMap.get("Plot").toString();
+        } else {
+            this.description = "Description not found. Consider checking movies name or removing special characters.";
+        }
     }
 
     @Override

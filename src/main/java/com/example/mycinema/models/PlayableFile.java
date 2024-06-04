@@ -33,7 +33,9 @@ public abstract class PlayableFile implements IPlayableInfo, IPlayableTxtAdition
     }
 
     @Override
-    public void setFileName() {}
+    public void setFileName() {
+        this.fileName = this.file.getName().trim().substring(0, file.getName().length() - 4);
+    }
 
     @Override
     public void setFileExtension() {
