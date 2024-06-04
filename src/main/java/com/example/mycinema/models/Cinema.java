@@ -1,7 +1,6 @@
 package com.example.mycinema.models;
 
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.util.ArrayList;
 
@@ -14,14 +13,6 @@ public class Cinema  {
 
     public Cinema() {
         createCatalog();
-    }
-
-    public void removeMovie(String title) {
-        for (Movie movie : movies) {
-            if (movie.fileName.equals(title)) {
-                movies.remove(movie);
-            }
-        }
     }
 
     public void createCatalog() {
