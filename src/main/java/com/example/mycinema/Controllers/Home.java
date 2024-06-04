@@ -19,7 +19,6 @@ public class Home extends Session {
         this.cinema = cinema;
     }
 
-
     @GetMapping("/admin")
     public String loginAdmin(Model model) {
         model.addAttribute("adminLogin", true);

@@ -25,10 +25,9 @@ public class ResourceLoaderController {
         System.out.println(title);
         Resource media = new FileSystemResource(findResource(title));
         ResourceRegion region = resourceRegion(media, headers);
-        System.err.println(region);
-        return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
-                .contentType(MediaTypeFactory.getMediaType(media)
-                        .orElse(MediaType.APPLICATION_OCTET_STREAM))
+        return ResponseEntity
+                .status(HttpStatus.PARTIAL_CONTENT)
+                .contentType(MediaTypeFactory.getMediaType(media).orElse(MediaType.APPLICATION_OCTET_STREAM))
                 .body(region);
     }
 
@@ -42,7 +41,7 @@ public class ResourceLoaderController {
             System.err.println("***");
             System.out.printf("Contente retrive: %d \n", contentLength);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
         List<HttpRange> range = headers.getRange();
         if (!range.isEmpty()) {

@@ -7,15 +7,13 @@ import java.util.ArrayList;
 
 @Service
 public class Cinema  {
-
     private final String PROVIDER_PATH = System.getProperty("user.dir");
     private String SOURCE_PATH = PROVIDER_PATH.substring(0, PROVIDER_PATH.lastIndexOf("/")) + "/movies";
-//    private String SOURCE_PATH = "/Users/Dev/Documents/Faculdade/P2/poo/avaliacao02/movies";
     public ArrayList<Movie> movies = new ArrayList<Movie>();
     private File[] moviesDir = new File(SOURCE_PATH).listFiles();
 
     public Cinema() {
-        getMoviesList();
+        createCatalog();
     }
 
     public void removeMovie(String title) {
@@ -26,7 +24,7 @@ public class Cinema  {
         }
     }
 
-    public void getMoviesList() {
+    public void createCatalog() {
         if (moviesDir.length != 0) {
             for (File movieDir: moviesDir) {
                 if(movieDir.isDirectory()) {
@@ -40,6 +38,5 @@ public class Cinema  {
                 }
             }
         }
-
     }
 }
