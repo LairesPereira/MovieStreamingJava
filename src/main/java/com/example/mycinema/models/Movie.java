@@ -3,20 +3,24 @@ package com.example.mycinema.models;
 import com.example.APIs.OMDB;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Movie extends PlayableFile  {
+    public Map<String, Object> about;
     private final String PROVIDER_PATH = System.getProperty("user.dir");
     private String SOURCE_PATH = PROVIDER_PATH.substring(0, PROVIDER_PATH.lastIndexOf("/")) + "/movies";
     public String gender;
     public String description;
     public String posterSource;
+    public String posterSourceURL;
 
     public Movie(String folderPath) {
         super(folderPath);
+        setAbout();
         createInfoTxt();
         setMovieGender();
         setMoviePoster();
@@ -25,32 +29,30 @@ public class Movie extends PlayableFile  {
         setAgeGroup();
     }
 
+    public void setAbout() {
+        OMDB omdbClient = new OMDB();
+        Map<String, Object> responseMap = omdbClient.searchTitle(super.fileName);
+        this.about = responseMap;
+        System.out.println(this.about);
+    }
+
     private void createInfoTxt() {
         try {
             File info = new File(super.folderPath + "/info.txt");
             info.createNewFile();
-
-            System.out.println(info);
+            FileWriter writer = new FileWriter(info.getPath());
+            writer.write(this.about.toString());
+            writer.close();
         } catch (Exception e) {
             System.err.println(e);
         }
     }
 
     public void setMoviePoster() {
-        File[] files = new File(super.folderPath).listFiles();
-        for (File file : files) {
-            if (file.toString().endsWith(".jpg") || file.toString().endsWith(".jpeg")) {
-                String extension = file.toString().endsWith(".jpg") ? ".jpg" : ".jpeg";
-                File rename = new File(file.getParent() + "/" + fileName + extension);
-                file.renameTo(rename);
-                File image = new File(folderPath + "/" + file.getName());
-                File f =  new File(image.getPath());
-                String encodstring = encodeFileToBase64Binary(f);
-                this.posterSource = "data:image/jpeg;base64," + encodstring;
-                break;
-            } else {
-                this.posterSource = "load-default";
-            }
+        if(this.about != null && this.about.get("Poster") != null) {
+            this.posterSourceURL = this.about.get("Poster").toString();
+        } else {
+            this.posterSource = "load-default";
         }
     }
 

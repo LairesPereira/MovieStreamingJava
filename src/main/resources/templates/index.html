@@ -22,8 +22,10 @@
       <div class="col-10">
         <div class="row" style="display: flex; flex-direction: row; gap: 5px;" >
           <div th:each="movie: ${moviesList}" class="card col-sm-3" style="width: 14rem; padding: 10px;">
-            <img class="card-img-top poster-image" th:if="${movie.posterSource != 'load-default'}" th:src="${movie.posterSource}" alt="Card image cap">
+            <img class="card-img-top poster-image" th:if="${movie.posterSource != 'load-default'}" th:src="${movie.posterSourceURL}" alt="Card image cap">
             <img class="card-img-top poster-image" th:unless="${movie.posterSource != 'load-default'}" th:src="@{images/default_poster.jpeg}" alt="">
+            <!-- <img class="card-img-top poster-image" th:if="${movie.posterSource != 'load-default'}" th:src="${movie.posterSource}" alt="Card image cap">
+             -->
             <div class="card-body">
               <h5 th:text="${movie.fileName}" th:id="${movie.fileName}" onclick="getMovie(this.id)" class="card-title"></h5>
               <p th:text="${movie.description}" class="card-text"></p>
