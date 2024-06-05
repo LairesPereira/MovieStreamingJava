@@ -1,15 +1,18 @@
 package com.example.mycinema.models;
 
 import com.example.APIs.OMDB;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import okhttp3.ResponseBody;
+
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Movie extends PlayableFile  {
+    private OMDB omdbClient = new OMDB();
     public Map<String, Object> about;
     private final String PROVIDER_PATH = System.getProperty("user.dir");
     private String SOURCE_PATH = PROVIDER_PATH.substring(0, PROVIDER_PATH.lastIndexOf("/")) + "/movies";
@@ -17,11 +20,11 @@ public class Movie extends PlayableFile  {
     public String description;
     public String posterSource;
     public String posterSourceURL;
+    private ResponseBody aboutResponseJson;
 
     public Movie(String folderPath) {
         super(folderPath);
         setAbout();
-        createInfoTxt();
         setMovieGender();
         setMoviePoster();
         setMovieDescription();
@@ -30,22 +33,53 @@ public class Movie extends PlayableFile  {
     }
 
     public void setAbout() {
-        OMDB omdbClient = new OMDB();
-        Map<String, Object> responseMap = omdbClient.searchTitle(super.fileName);
-        this.about = responseMap;
-        System.out.println(this.about);
+        if(!searchAboutJsonFile()) {
+            Map<String, Object> responseMap = omdbClient.searchTitle(super.fileName);
+            this.about = responseMap;
+            createAboutTxt();
+        } else {
+            try {
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                Type type = new TypeToken<Map<String, Object>>() {}.getType();
+                FileReader reader = new FileReader(super.folderPath + "/about.json");
+                Map<String, Object> responseMap = gson.fromJson(reader, type);
+                reader.close();
+                if(responseMap.containsKey("Error") && responseMap.get("Error").equals("Movie not found!")) {
+                    createAboutTxt();
+                }
+                this.about = responseMap;
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
     }
 
-    private void createInfoTxt() {
+    private void createAboutTxt() {
         try {
-            File info = new File(super.folderPath + "/info.txt");
-            info.createNewFile();
-            FileWriter writer = new FileWriter(info.getPath());
-            writer.write(this.about.toString());
+            this.aboutResponseJson = omdbClient.searchTitleJson(super.fileName);
+            Writer writer = new FileWriter(super.folderPath + "/about.json");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonElement jsonElement = JsonParser.parseString(this.aboutResponseJson.string());
+            gson.toJson(jsonElement, writer);
             writer.close();
         } catch (Exception e) {
             System.err.println(e);
         }
+    }
+
+    private boolean searchAboutJsonFile() {
+        File[] files = new File(folderPath).listFiles();
+        for (File file : files) {
+            try {
+                if (file.toString().endsWith("about.json")) {
+                    return true;
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+        return false;
     }
 
     public void setMoviePoster() {
