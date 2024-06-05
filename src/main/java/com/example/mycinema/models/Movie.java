@@ -1,9 +1,6 @@
 package com.example.mycinema.models;
 
 import com.example.APIs.OMDB;
-import com.example.mycinema.Enums.EnumAgeGroup;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,16 +8,16 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Movie extends PlayableFile implements WebMvcConfigurer {
+public class Movie extends PlayableFile  {
     private final String PROVIDER_PATH = System.getProperty("user.dir");
     private String SOURCE_PATH = PROVIDER_PATH.substring(0, PROVIDER_PATH.lastIndexOf("/")) + "/movies";
     public String gender;
     public String description;
     public String posterSource;
-    public int enumAgeGroup = EnumAgeGroup.FIRST_AGE_GROUP.age;
 
     public Movie(String folderPath) {
         super(folderPath);
+        createInfoTxt();
         setMovieGender();
         setMoviePoster();
         setMovieDescription();
@@ -28,11 +25,15 @@ public class Movie extends PlayableFile implements WebMvcConfigurer {
         setAgeGroup();
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Ajuste o caminho conforme o local do seu diretório
-        registry.addResourceHandler(SOURCE_PATH + "/**")
-                .addResourceLocations(SOURCE_PATH);
+    private void createInfoTxt() {
+        try {
+            File info = new File(super.folderPath + "/info.txt");
+            info.createNewFile();
+
+            System.out.println(info);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
     public void setMoviePoster() {
@@ -81,13 +82,7 @@ public class Movie extends PlayableFile implements WebMvcConfigurer {
     }
 
     @Override
-    public void setAgeGroup() {
-        try {
-            this.enumAgeGroup = Integer.parseInt(searchInfo(folderPath, "AGEGROUP:"));
-        } catch (NumberFormatException e) {
-            System.out.println("No age group Found");
-        }
-    }
+    public void setAgeGroup() {}
 
     @Override
     public String searchInfo(String folderPath, String value) {
