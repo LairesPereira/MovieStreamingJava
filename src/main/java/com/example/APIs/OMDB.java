@@ -38,4 +38,22 @@ public class OMDB {
         }
         return null;
     }
+
+    public ResponseBody searchTitleJson(String movieTitle) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(API_URL + "t=" + movieTitle)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
+           return response.body();
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return null;
+    }
 }
