@@ -7,6 +7,7 @@ import okhttp3.ResponseBody;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Scanner;
@@ -21,6 +22,12 @@ public class Movie extends PlayableFile  {
     public String posterSource;
     public String posterSourceURL;
     private ResponseBody aboutResponseJson;
+
+    private String title;
+    private String year;
+    private String director;
+    private String genre;
+    private String rating;
 
     public Movie(String folderPath) {
         super(folderPath);
