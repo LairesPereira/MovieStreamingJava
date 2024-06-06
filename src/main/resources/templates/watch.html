@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/7.14.3/video.js"></script>
+
     <title>Watch</title>
 </head>
 <body>
+
+    <!-- poster="MY_VIDEO_POSTER.jpg" -->
+
     <video
     id="my-video"
     class="video-js"
     controls
+    autoplay
     preload="auto"
     width="640"
     height="264"
-    poster="MY_VIDEO_POSTER.jpg"
-    data-setup="{}"
+    data-setup = ""
   >
     <source th:src="@{browse/video(title=${movieTitle})}" type="video/mp4" />
     <p class="vjs-no-js">
@@ -26,7 +31,16 @@
       >
     </p>
   </video>
-
-  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 </body>
+<script>
+  var player = videojs('my-video', {
+    autoplay: true,
+    controls: true,
+    fluid: true
+  });
+
+  window.addEventListener('click', () => {
+    player.requestFullscreen();
+  })
+</script>
 </html>
