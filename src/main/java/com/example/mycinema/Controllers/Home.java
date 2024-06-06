@@ -26,4 +26,10 @@ public class Home {
     public String login(Model model) {
         return "redirect:browse";
     }
+
+    @GetMapping("/watch")
+    public String watch(Model model,  @RequestParam String title) {
+        model.addAttribute("movieTitle", title);
+        return "watch";
+    }
 }

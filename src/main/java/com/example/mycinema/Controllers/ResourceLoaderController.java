@@ -35,7 +35,7 @@ public class ResourceLoaderController {
         long contentLength = 0;
         System.out.printf("Headers Range: %s", headers.getRange());
         try {
-            contentLength = 1000000;
+            contentLength = 10000;
             long contentLengthoriginal = media.contentLength();
             System.out.printf("Media content-original-len: %d \n", contentLengthoriginal);
             System.err.println("***");
@@ -53,7 +53,7 @@ public class ResourceLoaderController {
             try {
                 end =  Long.parseLong(ranges[1]);
             } catch (Exception e) {
-                end = 1000000;
+                end = 10000;
             }
 
             //            long end = 10000;
