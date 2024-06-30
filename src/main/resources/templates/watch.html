@@ -30,6 +30,9 @@
         >supports HTML5 video</a
       >
     </p>
+    
+    <track kind="captions" th:src="@{captions/aasb.vtt}" srclang="en" label="English" default>
+
   </video>
 </body>
 <script>
@@ -37,6 +40,16 @@
     autoplay: true,
     controls: true,
     fluid: true
+  });
+
+  player.ready(function(){
+    var settings = this.textTrackSettings;
+    settings.setValues({
+        "backgroundColor": "#000",
+        "backgroundOpacity": "0",
+        "edgeStyle": "uniform",
+    });
+    settings.updateDisplay();
   });
 
   window.addEventListener('click', () => {
